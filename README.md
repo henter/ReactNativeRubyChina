@@ -22,6 +22,7 @@ API是通过[kimono](https://www.kimonolabs.com)抓取的（开发期间正好�
 
 
 #### 关于
+![about](http://henter.qiniudn.com/ios/about.png)
 
 
 
