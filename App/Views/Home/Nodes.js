@@ -13,7 +13,7 @@ var SectionCell = require('./SectionCell');
 
 var Style = React.StyleSheet.create({
 	container: {
-		backgroundColor: '#E7EAEC',
+		backgroundColor: '#eeeeee',
 		flex:1,
 		justifyContent: 'center',
 		alignItems: 'center'

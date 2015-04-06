@@ -39,15 +39,5 @@ module.exports = React.StyleSheet.create({
 		fontSize: 14,
 		color: '#666666',
 		padding: 10,
-	},
-	loadingWrapper: {
-		backgroundColor: '#E7EAEC',
-		flex:1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		height: 300,
-	},
-	loading: {
-		textAlign: 'center',
 	}
 });

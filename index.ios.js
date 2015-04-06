@@ -95,9 +95,6 @@ var Style = StyleSheet.create({
   },
   navigator: {
     backgroundColor: '#E7EAEC'
-  },
-  nav: {
-    backgroundColor: 'blue'
   }
 });
 
