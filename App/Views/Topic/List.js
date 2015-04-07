@@ -86,7 +86,7 @@ var TopicList = React.createClass({
 			return response.json();
 		})
 		.catch((error) => {
-		    AlertIOS.alert(
+		    React.AlertIOS.alert(
 		      'error',
 		      '请求失败:'+error.message
 		    );
