@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>C41E31F3-9BCD-46A5-BA33-1421A0EA70B9</string>
+	<string>E645D61B-A5D9-4000-A0E9-1822C2E96203</string>
 	<key>IDESourceControlProjectName</key>
 	<string>RubyChina</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>BA8A0B71DED9F139D910E062445FAF279A695728</key>
+		<key>33208CCB152E1E73DD8C53DDE81548DBD3B27012</key>
 		<string>coding.net:henter/RubyChina.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>RubyChina.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>BA8A0B71DED9F139D910E062445FAF279A695728</key>
+		<key>33208CCB152E1E73DD8C53DDE81548DBD3B27012</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>BA8A0B71DED9F139D910E062445FAF279A695728</string>
+	<string>33208CCB152E1E73DD8C53DDE81548DBD3B27012</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>BA8A0B71DED9F139D910E062445FAF279A695728</string>
+			<string>33208CCB152E1E73DD8C53DDE81548DBD3B27012</string>
 			<key>IDESourceControlWCCName</key>
 			<string>RubyChina</string>
 		</dict>

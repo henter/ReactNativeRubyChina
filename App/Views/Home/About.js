@@ -42,10 +42,6 @@ Ruby China，对！没错！
           </Text>
 
 
-          <Text style={{marginTop: 50}}>
-PS： RubyChina什么时候可以重新开放API ？!
-          </Text>
-
         <TouchableHighlight onPress={() => this._onPress('ReactNative RubyChina', 'http://github.com/henter/ReactNativeRubyChina')}>
           <Text style={Style.link}>
             http://github.com/henter/ReactNativeRubyChina

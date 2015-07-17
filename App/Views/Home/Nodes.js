@@ -4,12 +4,14 @@ var React = require('react-native');
 var {
 	Text,
 	View,
-	ListView,
-	ActivityIndicatorIOS
+	ScrollView,
+	ActivityIndicatorIOS,
+	TouchableHighlight,
+	PixelRatio
 } = React;
 
 var Api = require('../../Network/API');
-var SectionCell = require('./SectionCell');
+var NodeCell = require('./NodeCell');
 
 var Style = React.StyleSheet.create({
 	container: {
@@ -17,16 +19,38 @@ var Style = React.StyleSheet.create({
 		flex:1,
 		justifyContent: 'center',
 		alignItems: 'center'
-	}
+	},
+	nodes: {
+		flex: 1,
+		padding: 8,
+		flexDirection: 'row',
+	},
+	nodeWrapper: {
+		flex: 1,
+		backgroundColor: '#ffffff',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		padding: 8,
+		margin: 5,
+		width: PixelRatio.get() === 3 ? 122 : PixelRatio.getPixelSizeForLayoutSize(46),
+		marginBottom: 5,
+	},
+	node: {
+		fontSize: 14,
+		fontWeight: 'bold',
+		textAlign: 'left',
+		color: '#666E74'
+	},
+
 });
+console.log('pixeratio');
+console.log(PixelRatio.get());
 
 
 module.exports = React.createClass({
 	getInitialState: function(){
 		return {
-			dataSource: new ListView.DataSource({
-				rowHasChanged: (r1, r2) => r1 !== r2
-			}),
+			nodes: [],
 			loaded: false
 		};
 	},
@@ -34,30 +58,17 @@ module.exports = React.createClass({
 		this.fetchData();
 	},
 	fetchData: function(){
-
-		//fake data
-		/*
-		var fake_json = require('../../Network/Fake/nodes');
-		this.setState({
-				dataSource: this.state.dataSource.cloneWithRows(fake_json.results.collection1),
-				loaded: true
-			});
-		return true;
-		*/
-		
-
-		console.log(Api.Nodes());
 		fetch(Api.Nodes())
 		.then((response) => {
 			return response.json();
 		})
 		.then((responseData) => {
 			console.log(responseData);
-			if(!responseData.results){
+			if(!responseData.nodes){
 				return ;
 			}else{
 				this.setState({
-					dataSource: this.state.dataSource.cloneWithRows(responseData.results.collection1),
+					nodes: responseData.nodes,
 					loaded: true
 				});
 			}
@@ -78,22 +89,48 @@ module.exports = React.createClass({
 			</View>
 		);
 	},
-	renderNodeList: function(){
-		// console.log(this.props);
+
+	//每行3个，这里将nodes切成N个数组，每个数组3条数据
+	renderNodesAuto: function(){
+		var nodes = this.state.nodes;
+		var n = Math.ceil(nodes.length/3);
+		var r = [];
+		for (var i = 1; i <= n; i++) {
+			r.push(nodes.slice((i-1)*3, i*3));
+		};
+		//console.log(r);
+		return r.map(this.renderNodes);
+	},
+	renderNodes: function(nodes){
+		//console.log(nodes);
 		return (
-			<ListView
-				dataSource={this.state.dataSource}
-				renderRow={this.renderSectionCell}
-				style={{marginTop:0}} />
+			<View style={Style.nodes}>
+				{nodes.map(this.renderNodeCell)}
+			</View>
 		);
 	},
-	renderSectionCell: function(data){
+	renderNodeList: function(){
 		return (
-			<SectionCell 
-				onSelectNode={
-					(data) => this.selectNode(data)
+
+			<ScrollView>
+				{this.renderNodesAuto()}
+			</ScrollView>
+			);
+	},
+	renderNodeCell: function(data){
+		return (
+			<TouchableHighlight
+				onPress={
+					() => this.selectNode(data)
 				}
-			data={data} />
+			 	underlayColor={'#eeeeee'}>
+				<View style={Style.nodeWrapper}>
+					<Text style={Style.node}>
+						{data.name}
+					</Text>
+				</View>
+			</TouchableHighlight>
+
 		);
 	},
 

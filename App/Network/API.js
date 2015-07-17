@@ -1,6 +1,6 @@
 'use strict';
-var BASE = 'https://www.kimonolabs.com/api/ondemand/';
-var APIKEY = 'qbbazNSlIkurzMJrDEHR8HiI4I0iihBG';
+var BASE = 'https://ruby-china.org/api/v3/';
+var ACCESS_TOKEN = '495c7bef0f438c5505ebdecabd4fce87ac7764f79ccaed608412f3199041d66d';
 
 function api(api, v){
 	if(v instanceof Object){
@@ -10,28 +10,27 @@ function api(api, v){
 	}else{
 		var p = v;
 	}
-	return BASE + api + '?apikey=' + APIKEY + '&' + p;
+	return BASE + api + '?access_token=' + ACCESS_TOKEN + '&' + p;
 }
 
 function getNodes(){
-	return api('1wy2ekno', {'kimmodify': 1});
-	return 'https://www.kimonolabs.com/api/ondemand/1wy2ekno?apikey=qbbazNSlIkurzMJrDEHR8HiI4I0iihBG&kimmodify=1';
+	return api('nodes.json');
 }
 
-
-function getHomeTopics(page){
-	return api('92vscx2s', {'page': page, 'kimmodify': 1});
-	return 'https://www.kimonolabs.com/api/ondemand/92vscx2s?apikey=qbbazNSlIkurzMJrDEHR8HiI4I0iihBG&kimmodify=1&page=3';
+function getComments(topic_id, offset, limit){
+	return api('topics/'+topic_id+'/replies.json', {'offset':offset, 'limit':limit});
 }
 
-function getNodeTopics(node_id, page){
-	return api('b4w7f3h6', {'kimpath2':'node'+node_id, 'page': page, 'kimmodify': 1});
-	return 'https://www.kimonolabs.com/api/ondemand/b4w7f3h6?apikey=qbbazNSlIkurzMJrDEHR8HiI4I0iihBG&&kimpath2=node29&kimmodify=1';
+function getHomeTopics(offset, limit){
+	return api('topics.json', {'type':'excellent','offset':offset, 'limit':limit});
+}
+
+function getNodeTopics(node_id, offset, limit){
+	return api('topics.json', {'node_id':node_id, 'offset':offset, 'limit':limit});
 }
 
 function getTopic(id){
-	return api('3v0suq7k', {'kimpath2': id, 'kimmodify':1});
-	return 'https://www.kimonolabs.com/api/ondemand/3v0suq7k?apikey=qbbazNSlIkurzMJrDEHR8HiI4I0iihBG&kimmodify=1&kimpath2='+id;
+	return api('topics/'+id+'.json');
 }
 
 module.exports = {
@@ -39,4 +38,5 @@ module.exports = {
 	HomeTopics: getHomeTopics,
 	NodeTopics: getNodeTopics,
 	Topic: getTopic,
+	Comments: getComments
 };
