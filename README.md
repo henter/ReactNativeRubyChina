@@ -3,6 +3,9 @@ ReactNative iOS APP for RubyChina
 
 尝试用ReactNative写的iOS客户端
 
+#### 2015.11.19更新
+更新react-native版本，修复各种bug。
+暂不支持Android  = =!
 
 #### 2015.07.17更新
 

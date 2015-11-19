@@ -1,0 +1,3 @@
+rootProject.name = 'RubyChina'
+
+include ':app'

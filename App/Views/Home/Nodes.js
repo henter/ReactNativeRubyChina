@@ -43,9 +43,8 @@ var Style = React.StyleSheet.create({
 	},
 
 });
-console.log('pixeratio');
-console.log(PixelRatio.get());
-
+//console.log('pixeratio');
+//console.log(PixelRatio.get());
 
 module.exports = React.createClass({
 	getInitialState: function(){
@@ -63,7 +62,6 @@ module.exports = React.createClass({
 			return response.json();
 		})
 		.then((responseData) => {
-			console.log(responseData);
 			if(!responseData.nodes){
 				return ;
 			}else{
@@ -72,7 +70,6 @@ module.exports = React.createClass({
 					loaded: true
 				});
 			}
-
 		})
 		.done();
 	},
@@ -111,8 +108,7 @@ module.exports = React.createClass({
 	},
 	renderNodeList: function(){
 		return (
-
-			<ScrollView>
+			<ScrollView style={{marginTop: 65, marginBottom: 50}}>
 				{this.renderNodesAuto()}
 			</ScrollView>
 			);

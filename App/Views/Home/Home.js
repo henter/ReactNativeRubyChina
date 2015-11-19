@@ -35,6 +35,7 @@ var TopicList = React.createClass({
 				rowHasChanged: (r1, r2) => r1 !== r2
 			}),
 			loaded: false,
+			loadingPage: 0,
 			currentPage: 0,
 		};
 	},
@@ -51,6 +52,7 @@ var TopicList = React.createClass({
 
 		this.setState({
 			loaded: false,
+      loadingPage: page
 		});
 
 		var limit = 50;
@@ -90,7 +92,7 @@ var TopicList = React.createClass({
 	},
 
 	render: function(){
-		if(!this.state.loaded){
+		if(this.state.loadingPage == 1 && !this.state.loaded){
 			return (
 				<View style={{height: 50}}>
 					<ActivityIndicatorIOS color="#356DD0" style={{marginVertical: 30,marginBottom: 30}} />
@@ -102,7 +104,7 @@ var TopicList = React.createClass({
 
 	renderFooter: function() {
 	    if(this.state.loaded){
-	    	<View style={{marginVertical: 30}} ><Text>...</Text></View>
+	    	return <View style={{marginVertical: 30}} ><Text>...</Text></View>;
 	    }
 	    return <ActivityIndicatorIOS color="#356DD0"  style={{marginVertical: 30,marginBottom: 30}} />;
 	},
@@ -137,7 +139,7 @@ var TopicList = React.createClass({
 					() => this.selectTopic(data)
 				}
 				data={data} />
-		); 
+		);
 	},
 	selectTopic: function(data){
 		this.props.navigator.push({

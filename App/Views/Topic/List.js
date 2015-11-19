@@ -35,7 +35,9 @@ var TopicList = React.createClass({
 				rowHasChanged: (r1, r2) => r1 !== r2
 			}),
 			loaded: false,
+      loadingPage: 0,
 			currentPage: 0,
+			end: false,
 		};
 	},
 	componentDidMount: function(){
@@ -48,9 +50,12 @@ var TopicList = React.createClass({
 	},
 	fetchData: function(page){
 		console.log('loading page '+page+'...');
+    if(this.state.loadingPage == page)
+      return;
 
 		this.setState({
 			loaded: false,
+			loadingPage: page,
 		});
 
 		var node_id = this.props.data.id;
@@ -73,6 +78,11 @@ var TopicList = React.createClass({
 		    );
 		})
 		.then((responseData) => {
+      if(!responseData.topics){
+        this.setState({end: true});
+        return;
+      }
+
 			this.cache(responseData.topics);
 			NODE_ID = node_id;
 
@@ -88,15 +98,16 @@ var TopicList = React.createClass({
 					dataSource: this.state.dataSource.cloneWithRows(CACHE),
 					loaded: true,
 					loading: false,
+          end: false,
 					currentPage: this.state.currentPage+1,
 				});
 			}
 		})
-		.done();
+    .done();
 	},
 
 	render: function(){
-		if(!this.state.loaded){
+		if(this.state.loadingPage == 1 && !this.state.loaded){
 			return (
 				<View style={Style.container}>
 					<ActivityIndicatorIOS color="#356DD0" style={{marginVertical: 30,marginBottom: 30}} />
@@ -108,13 +119,13 @@ var TopicList = React.createClass({
 
 	renderFooter: function() {
 	    if(this.state.loaded){
-	    	<View style={{marginVertical: 30}} ><Text>...</Text></View>
+	    	return <View style={{marginVertical: 30}} ><Text></Text></View>;
 	    }
 	    return <ActivityIndicatorIOS color="#356DD0"  style={{marginVertical: 30,marginBottom: 30}} />;
 	},
 
 	onEndReached: function() {
-	    if(!this.state.loaded) {
+	    if(this.state.end || !this.state.loaded) {
 	      return;
 	    }
 	    return this.fetchData(this.state.currentPage + 1);
@@ -143,7 +154,7 @@ var TopicList = React.createClass({
 					() => this.selectTopic(data)
 				}
 				data={data} />
-		); 
+		);
 	},
 	selectTopic: function(data){
 		this.props.navigator.push({

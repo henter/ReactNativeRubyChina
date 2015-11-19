@@ -45,8 +45,8 @@ module.exports = React.StyleSheet.create({
 
 	replyNumWrapper: {
 		width: 30,
-		marginLeft: 10,
-		marginRight: 0,
+		marginLeft: 8,
+		marginRight: 2,
 		justifyContent: 'center',
 		alignSelf: 'center',
 	},

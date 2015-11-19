@@ -16,6 +16,7 @@ var Api = require('../../Network/API');
 var CommentCell = require('./CommentCell');
 var timeago = require('./timeago');
 
+var TOPIC_ID = 0;
 var CACHE = [];
 
 var TopicView = React.createClass({
@@ -26,6 +27,7 @@ var TopicView = React.createClass({
 			}),
 			loaded: false,
 			comment_loaded: false,
+      commentLoadingPage: 0,
 			currentPage: 0
 		};
 	},
@@ -40,6 +42,7 @@ var TopicView = React.createClass({
 	},
 
 	fetchData: function(){
+    console.log(Api.Topic(this.props.data.id));
 		fetch(Api.Topic(this.props.data.id))
 		.then((response) => {
 			// console.log(response);
@@ -55,15 +58,25 @@ var TopicView = React.createClass({
 		.done();
 	},
 	fetchCommentData: function(page){
+    if(this.state.commentLoadingPage == page)
+      return ;
+
 		var limit = 50;
 		var offset = (page-1)*limit;
 
-		fetch(Api.Comments(this.props.data.id, offset, limit))
+    this.setState({commentLoadingPage: page});
+    var topic_id = this.props.data.id;
+    if(TOPIC_ID && topic_id != TOPIC_ID){
+      CACHE = [];
+    }
+
+    console.log(Api.Comments(topic_id, offset, limit));
+		fetch(Api.Comments(topic_id, offset, limit))
 		.then((response) => {
-			// console.log(response);
 			return response.json();
 		})
 		.then((responseData) => {
+      TOPIC_ID = topic_id;
 			this.cache(responseData.replies);
 
 			this.setState({
@@ -71,7 +84,7 @@ var TopicView = React.createClass({
 				loaded: this.state.loaded,
 				comment_loaded: true,
 				commentsDataSource: this.state.commentsDataSource.cloneWithRows(CACHE),
-				currentPage: this.state.currentPage+1,
+				currentPage: page,
 			});
 		})
 		.done();
@@ -102,14 +115,14 @@ var TopicView = React.createClass({
 			renderFooter={this.renderFooter}
 			onEndReached={this.onEndReached}
 	        automaticallyAdjustContentInsets={false}
-	        showsVerticalScrollIndicator={false} 
+	        showsVerticalScrollIndicator={false}
 			style={Style.TopicList} />
 		);
 	},
 
 	renderFooter: function() {
 	    if(this.state.comment_loaded){
-	    	<View style={{marginVertical: 30}} ><Text>...</Text></View>
+	    	return <View style={{marginVertical: 30}} ><Text></Text></View>;
 	    }
 	    return <ActivityIndicatorIOS color="#356DD0"  style={{marginVertical: 30,marginBottom: 30}} />;
 	},
@@ -135,6 +148,11 @@ var TopicView = React.createClass({
 
 	renderTopicHeader: function(){
 		var data = this.props.data;
+    var avatar_url = data.user.avatar_url;
+    if(avatar_url.substr(0, 2) == '//'){
+      avatar_url = 'https:'+avatar_url;
+    }
+
 		return (
 			<View style={Style.header}>
 				<View style={{flex:1}}>
@@ -143,9 +161,9 @@ var TopicView = React.createClass({
 					</Text>
 					{this.renderInfo()}
 				</View>
-				<Image style={Style.avatar} 
+				<Image style={Style.avatar}
 						source={{
-							uri: data.user.avatar_url
+							uri: avatar_url
 					}}/>
 			</View>
 		);

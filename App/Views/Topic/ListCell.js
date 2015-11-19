@@ -15,12 +15,16 @@ var timeago = require('./timeago');
 module.exports = React.createClass({
 	render: function(){
 		var data = this.props.data;
+    var avatar_url = data.user.avatar_url;
+    if(avatar_url.substr(0, 2) == '//'){
+      avatar_url = 'https:'+avatar_url;
+    }
 		return (
 			<TouchableHighlight onPress={this.props.onSelect} underlayColor={'#eeeeee'}>
 				<View style={Style.container}>
 					<Image style={Style.avatar}
 					source={{
-						uri: data.user.avatar_url
+						uri: avatar_url
 					}} />
 
 					<View style={Style.topic}>
@@ -39,7 +43,7 @@ module.exports = React.createClass({
 	renderCommentCount: function(){
 		var data = this.props.data;
 		if(data.replies_count){
-			var comment_width = 20 + data.replies_count.toString().length * 8;
+			var comment_width = 24 + data.replies_count.toString().length * 8;
 			return (
 					<View style={Style.replyNumWrapper}>
 						<View style={[Style.replyNum, {width: comment_width}]}>

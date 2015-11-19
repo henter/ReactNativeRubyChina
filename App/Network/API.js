@@ -7,8 +7,10 @@ function api(api, v){
 		var p = Object.keys(v).map(function(k) {
 			return encodeURIComponent(k) + "=" + encodeURIComponent(v[k]);
 		}).join('&');
-	}else{
+	}else if(v){
 		var p = v;
+  }else{
+    var p ='';
 	}
 	return BASE + api + '?access_token=' + ACCESS_TOKEN + '&' + p;
 }

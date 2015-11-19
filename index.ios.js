@@ -36,7 +36,7 @@ var RubyChina = React.createClass({
                 <NavigatorIOS style={Style.container}
                     tintColor={'#333344'}
                     initialRoute={{
-                      title: '社区精华 - RubyChina',
+                      title: '社区精华',
                       component: require('./App/Views/Home/Home')
                     }}
                     itemWrapperStyle={Style.navigator} />
@@ -56,7 +56,7 @@ var RubyChina = React.createClass({
                 <NavigatorIOS style={Style.container}
                     tintColor={'#333344'}
                     initialRoute={{
-                      title: '节点分类 - RubyChina',
+                      title: '节点分类',
                       component: require('./App/Views/Home/Nodes')
                     }}
                     itemWrapperStyle={Style.navigator} />

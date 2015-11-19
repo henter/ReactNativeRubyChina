@@ -55,11 +55,16 @@ module.exports = React.createClass({
 		var data = this.props.data;
 		var body = data.body_html.replace(/<\/?[^>]+>/g, '');
 
+    var avatar_url = data.user.avatar_url;
+    if(avatar_url.substr(0, 2) == '//'){
+      avatar_url = 'https:'+avatar_url;
+    }
+
 		return (
 			<View style={Style.container}>
 				<Image style={Style.avatar}
 					source={{
-						uri: data.user.avatar_url
+						uri: avatar_url
 					}} />
 
 				<View style={Style.content}>
