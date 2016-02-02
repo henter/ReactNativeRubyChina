@@ -32,7 +32,7 @@ var Style = React.StyleSheet.create({
 		justifyContent: 'center',
 		padding: 8,
 		margin: 5,
-		width: PixelRatio.get() === 3 ? 122 : PixelRatio.getPixelSizeForLayoutSize(46),
+		width: PixelRatio.get() === 3 ? 124 : PixelRatio.getPixelSizeForLayoutSize(55),
 		marginBottom: 5,
 	},
 	node: {
