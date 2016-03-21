@@ -3,6 +3,15 @@ ReactNative iOS APP for RubyChina
 
 尝试用ReactNative写的iOS客户端
 
+#### 步骤
+确保本地环境已安装`npm`
+
+运行 `npm install`
+
+然后打开xcode再编译
+
+
+
 #### 2015.11.19更新
 更新react-native版本，修复各种bug。
 暂不支持Android  = =!
